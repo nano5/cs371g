@@ -32,17 +32,6 @@ pull:
     --exclude "*"                           \
     ../../exercises/c++/ exercises
 
-#	@rsync -r -t -u -v --delete             \
-#    --include "Collatz.c++"                 \
-#    --include "Collatz.h"                   \
-#    --include "RunCollatz.c++"              \
-#    --include "RunCollatz.in"               \
-#    --include "RunCollatz.out"              \
-#    --include "TestCollatz.c++"             \
-#    --include "TestCollatz.out"             \
-#    --exclude "*"                           \
-#    ../../projects/c++/collatz/ collatz
-
 push:
 	make clean
 	@echo
