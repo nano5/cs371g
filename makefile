@@ -68,4 +68,4 @@ test:
 	@echo
 	cd exercises; make test
 	@echo
-	cd collatz; make clean
+	cd collatz; make test
