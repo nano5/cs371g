@@ -48,10 +48,10 @@ Doxyfile:
 RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
 ifeq ($(CC), clang)
 	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
-	-$(CLANG-CHECK) -extra_arg=-std=c++11          Collatz.c++     --
-	-$(CLANG-CHECK) -extra_arg=-std=c++11 -analyze Collatz.c++     --
-	-$(CLANG-CHECK) -extra_arg=-std=c++11          RunCollatz.c++  --
-	-$(CLANG-CHECK) -extra_arg=-std=c++11 -analyze RunCollatz.c++  --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11          Collatz.c++     --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11 -analyze Collatz.c++     --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11          RunCollatz.c++  --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11 -analyze RunCollatz.c++  --
 else
 	$(CXX) $(CXXFLAGS) $(GPROFFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
 endif
@@ -67,8 +67,8 @@ endif
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 ifeq ($(CC), clang)
 	$(CXX) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
-	-$(CLANG-CHECK) -extra_arg=-std=c++11          TestCollatz.c++ --
-	-$(CLANG-CHECK) -extra_arg=-std=c++11 -analyze TestCollatz.c++ --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11          TestCollatz.c++ --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11 -analyze TestCollatz.c++ --
 else
 	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
 endif
