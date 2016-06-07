@@ -101,13 +101,16 @@ check:
     echo "success";
 
 clean:
-	rm -f *.gcda
-	rm -f *.gcno
-	rm -f *.gcov
-	rm -f RunCollatz
-	rm -f RunCollatz.tmp
-	rm -f TestCollatz
-	rm -f TestCollatz.tmp
+	rm -f  *.gcda
+	rm -f  *.gcno
+	rm -f  *.gcov
+	rm -f  Collatz.log
+	rm -f  RunCollatz
+	rm -f  RunCollatz.tmp
+	rm -f  TestCollatz
+	rm -f  TestCollatz.tmp
+	rm -rf html
+	rm -rf latex
 
 config:
 	git config -l
@@ -117,12 +120,6 @@ format:
 	clang-format -i Collatz.h
 	clang-format -i RunCollatz.c++
 	clang-format -i TestCollatz.c++
-
-scrub:
-	make clean
-	rm -f  Collatz.log
-	rm -rf html
-	rm -rf latex
 
 status:
 	make clean
