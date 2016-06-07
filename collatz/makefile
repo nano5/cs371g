@@ -105,10 +105,13 @@ clean:
 	rm -f  *.gcno
 	rm -f  *.gcov
 	rm -f  Collatz.log
+	rm -f  Doxyfile
+	rm -f  gmon.out
 	rm -f  RunCollatz
 	rm -f  RunCollatz.tmp
 	rm -f  TestCollatz
 	rm -f  TestCollatz.tmp
+	rm -rf collatz_tests
 	rm -rf html
 	rm -rf latex
 
