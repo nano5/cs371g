@@ -29,5 +29,6 @@ endif
 
 clean:
 	rm -f *.app
+	rm -f *.plist
 
 test: $(FILES:=.c++x)

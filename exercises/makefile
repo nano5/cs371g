@@ -35,5 +35,6 @@ clean:
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
+	rm -f *.plist
 
 test: $(FILES:=.c++x)
