@@ -111,7 +111,7 @@ clean:
 	rm -f  RunCollatz.tmp
 	rm -f  TestCollatz
 	rm -f  TestCollatz.tmp
-	rm -rf collatz_tests
+	rm -rf collatz-tests
 	rm -rf html
 	rm -rf latex
 
