@@ -67,6 +67,8 @@ endif
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 ifeq ($(CC), clang)
 	$(CXX) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
+	-$(CLANG-CHECK) -extra-arg=-std=c++11          Collatz.c++     --
+	-$(CLANG-CHECK) -extra-arg=-std=c++11 -analyze Collatz.c++     --
 	-$(CLANG-CHECK) -extra-arg=-std=c++11          TestCollatz.c++ --
 	-$(CLANG-CHECK) -extra-arg=-std=c++11 -analyze TestCollatz.c++ --
 else
