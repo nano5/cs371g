@@ -17,6 +17,31 @@ init:
 	git push -u origin master
 
 pull:
+	make clean
+	@echo
+	git pull
+	git status
+
+push:
+	make clean
+	@echo
+	git add .travis.yml
+	git add examples
+	git add exercises
+	git add collatz
+	git add makefile
+	git commit -m "another commit"
+	git push
+	git status
+
+status:
+	make clean
+	@echo
+	git branch
+	git remote -v
+	git status
+
+sync:
 	@rsync -r -t -u -v --delete             \
     --include "Hello.c++"                   \
     --include "Assertions.c++"              \
@@ -43,21 +68,6 @@ pull:
     --include "TestCollatz.out"             \
     --exclude "*"                           \
     ../../projects/c++/collatz/ collatz
-
-push:
-	git add .travis.yml
-	git add examples
-	git add exercises
-	git add collatz
-	git add makefile
-	git commit -m "another commit"
-	git push
-	git status
-
-status:
-	git branch
-	git remote -v
-	git status
 
 test:
 	cd examples; make test
