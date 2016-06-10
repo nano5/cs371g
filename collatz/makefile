@@ -17,20 +17,25 @@ FILES :=                              \
 #    collatz-tests/EID-TestCollatz.c++ \
 #    collatz-tests/EID-TestCollatz.out \
 
-CLANG-FORMAT := clang-format
-CXXFLAGS     := -pedantic -std=c++11 -Wall
-LDFLAGS      := -lgtest -lgtest_main -pthread
-VALGRIND     := valgrind
+CXXFLAGS := -pedantic -std=c++11 -Wall
+LDFLAGS  := -lgtest -lgtest_main -pthread
+VALGRIND := valgrind
 
 ifeq ($(CC), clang)
-    CLANG-CHECK := clang-check
-    CXX         := clang++
+    CLANG-CHECK  := clang-check
+    CXX          := clang++
 else
-    CXX         := g++-4.8
-    GCOV        := gcov-4.8
-    GCOVFLAGS   := -fprofile-arcs -ftest-coverage
-    GPROF       := gprof
-    GPROFFLAGS  := -pg
+    CXX          := g++-4.8
+    GCOV         := gcov-4.8
+    GCOVFLAGS    := -fprofile-arcs -ftest-coverage
+    GPROF        := gprof
+    GPROFFLAGS   := -pg
+endif
+
+ifeq ($(CI), true)
+    CLANG-FORMAT := clang-format
+else
+    CLANG-FORMAT := clang-format-3.4
 endif
 
 collatz-tests:
@@ -122,10 +127,10 @@ config:
 	git config -l
 
 format:
-	clang-format -i Collatz.c++
-	clang-format -i Collatz.h
-	clang-format -i RunCollatz.c++
-	clang-format -i TestCollatz.c++
+	$(CLANG-FORMAT) -i Collatz.c++
+	$(CLANG-FORMAT) -i Collatz.h
+	$(CLANG-FORMAT) -i RunCollatz.c++
+	$(CLANG-FORMAT) -i TestCollatz.c++
 
 status:
 	make clean
