@@ -1,7 +1,10 @@
 # http://stackoverflow.com/questions/31176997/what-does-clang-check-do-without-analyze-option
 
 FILES :=          \
-    IsPrime1
+    IsPrime1      \
+    IsPrime2      \
+    StrCmp        \
+    Incr
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread

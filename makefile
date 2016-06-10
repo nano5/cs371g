@@ -51,14 +51,23 @@ sync:
     --include "Coverage1.c++"               \
     --include "Coverage2.c++"               \
     --include "Coverage3.c++"               \
-    --include "Exceptions1.c++"             \
+    --include "Exceptions.c++"              \
     --include "Exceptions2.c++"             \
     --include "Exceptions3.c++"             \
+    --include "Types.c++"                   \
+    --include "Operators.c++"               \
+    --include "Variables.c++"               \
+    --include "Arguments.c++"               \
+    --include "Returns.c++"                 \
     --exclude "*"                           \
     ../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
     --include "IsPrime1.c++"                \
     --include "IsPrime1.h"                  \
+    --include "IsPrime2.c++"                \
+    --include "IsPrime2.h"                  \
+    --include "StrCmp.c++"                  \
+    --include "Incr.c++"                    \
     --exclude "*"                           \
     ../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \
