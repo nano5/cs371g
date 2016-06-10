@@ -2,9 +2,7 @@
 
 FILES :=          \
     IsPrime1      \
-    IsPrime2      \
-    StrCmp        \
-    Incr
+    IsPrime2
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread
