@@ -67,6 +67,7 @@ sync:
     --include "IsPrime2.c++"                \
     --include "IsPrime2.h"                  \
     --include "StrCmp.c++"                  \
+    --include "StrCmp.h"                    \
     --include "Equal.c++"                   \
     --include "Incr.c++"                    \
     --exclude "*"                           \
