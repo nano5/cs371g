@@ -13,7 +13,10 @@ FILES :=                    \
     Operators               \
     Variables               \
     Arguments               \
-    Returns
+    Returns                 \
+    Iteration               \
+    Auto                    \
+    Lambdas
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread

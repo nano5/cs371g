@@ -3,7 +3,8 @@
 FILES :=          \
     IsPrime1      \
     IsPrime2      \
-    StrCmp
+    StrCmp        \
+    Equal
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread

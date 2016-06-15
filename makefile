@@ -59,6 +59,9 @@ sync:
     --include "Variables.c++"               \
     --include "Arguments.c++"               \
     --include "Returns.c++"                 \
+    --include "Iteration.c++"               \
+    --include "Auto.c++"                    \
+    --include "Lambdas.c++"                 \
     --exclude "*"                           \
     ../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
@@ -69,7 +72,11 @@ sync:
     --include "StrCmp.c++"                  \
     --include "StrCmp.h"                    \
     --include "Equal.c++"                   \
+    --include "Equal.h"                     \
     --include "Incr.c++"                    \
+    --include "Copy.c++"                    \
+    --include "Fill.c++"                    \
+    --include "AllOf.c++"                   \
     --exclude "*"                           \
     ../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \
