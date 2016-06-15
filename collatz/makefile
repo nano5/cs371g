@@ -65,7 +65,7 @@ RunCollatz.tmp: RunCollatz
 	./RunCollatz < RunCollatz.in > RunCollatz.tmp
 	diff RunCollatz.tmp RunCollatz.out
 ifeq ($(CC), gcc)
-	$(GPROF) ./RunCollatz < RunCollatz.in > RunCollatz.tmp
+	$(GPROF) ./RunCollatz < RunCollatz.in >> RunCollatz.tmp
 endif
 	cat RunCollatz.tmp
 
