@@ -78,6 +78,7 @@ sync:
     --include "Copy.c++"                    \
     --include "Fill.c++"                    \
     --include "AllOf.c++"                   \
+    --include "Stack.c++"                   \
     --exclude "*"                           \
     ../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \
