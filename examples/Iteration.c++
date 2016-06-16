@@ -4,14 +4,13 @@
 
 // http://www.cplusplus.com/doc/tutorial/control/
 
-#include <algorithm>        // equal
-#include <cassert>          // assert
-#include <initializer_list> // initializer_list
-#include <iostream>         // cout, endl
-#include <list>             // list
-#include <map>              // map
-#include <set>              // set
-#include <utility>          // pair
+#include <algorithm> // equal
+#include <cassert>   // assert
+#include <iostream>  // cout, endl
+#include <list>      // list
+#include <map>       // map
+#include <set>       // set
+#include <utility>   // pair
 
 int main () {
     using namespace std;
@@ -71,7 +70,7 @@ int main () {
         s += r;
         ++r;}
     assert(s == 9);
-    assert(equal(a, a + 3, initializer_list<int>({3, 4, 5}).begin()));
+    assert(equal(a, a + 3, begin({3, 4, 5})));
     }
 
     {
@@ -101,8 +100,8 @@ int main () {
     {
     const list<int> x = {2, 3, 4};
           int       s = 0;
-    list<int>::const_iterator b = x.begin();
-    list<int>::const_iterator e = x.end();
+    list<int>::const_iterator b = begin(x); // x.begin()
+    list<int>::const_iterator e = end(x);   // x.end()
     while (b != e) {
         list<int>::value_type v = *b;
         s += v;
@@ -114,6 +113,14 @@ int main () {
     const set<int> x = {2, 3, 4};
           int      s = 0;
     for (auto v : x)
+        s += v;
+    assert(s == 9);
+    }
+
+    {
+    const set<int> x = {2, 3, 4};
+          int      s = 0;
+    for (set<int>::value_type v : x)
         s += v;
     assert(s == 9);
     }

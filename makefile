@@ -60,7 +60,7 @@ sync:
     --include "Arguments.c++"               \
     --include "Returns.c++"                 \
     --include "Iteration.c++"               \
-    --include "Auto.c++"                    \
+    --include "InitializerList.c++"         \
     --include "Lambdas.c++"                 \
     --exclude "*"                           \
     ../../examples/c++/ examples

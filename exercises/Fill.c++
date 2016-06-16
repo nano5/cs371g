@@ -31,15 +31,15 @@ TEST_P(FillListFixture, test_1) {
     const int         v = 2;
           vector<int> x(5);
     const vector<int> y = {0, 2, 2, 2, 0};
-    GetParam()(x.begin() + 1, x.end() - 1, v);
-    ASSERT_TRUE(equal(x.begin(), x.end(), y.begin()));}
+    GetParam()(begin(x) + 1, end(x) - 1, v);
+    ASSERT_TRUE(equal(begin(x), end(x), begin(y)));}
 
 TEST_P(FillListFixture, test_2) {
     const int         v = 3;
           vector<int> x(6);
     const vector<int> y = {0, 3, 3, 3, 3, 0};
-    GetParam()(x.begin() + 1, x.end() - 1, v);
-    ASSERT_TRUE(equal(x.begin(), x.end(), y.begin()));}
+    GetParam()(begin(x) + 1, end(x) - 1, v);
+    ASSERT_TRUE(equal(begin(x), end(x), begin(y)));}
 
 /*
 % g++ -pedantic -std=c++11 -Wall Fill.c++ -o Fill -lgtest -lgtest_main -pthread

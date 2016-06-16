@@ -31,12 +31,12 @@ INSTANTIATE_TEST_CASE_P(
 
 TEST_P(AllOfListFixture, test_1) {
     const list<int> x = {3, 5, 7};
-    ASSERT_TRUE(GetParam()(x.begin(), x.end(), [] (int v) -> bool {return (v % 2);}));}
+    ASSERT_TRUE(GetParam()(begin(x), end(x), [] (int v) -> bool {return (v % 2);}));}
 
 TEST_P(AllOfListFixture, test_2) {
     const int       n = 2;
     const list<int> x = {3, 5, 7};
-    ASSERT_TRUE(GetParam()(x.begin(), x.end(), [n] (int v) -> bool {return (v % n);}));}
+    ASSERT_TRUE(GetParam()(begin(x), end(x), [n] (int v) -> bool {return (v % n);}));}
 
 /*
 % g++ -pedantic -std=c++11 -Wall AllOf.c++ -o AllOf -lgtest -lgtest_main -pthread
