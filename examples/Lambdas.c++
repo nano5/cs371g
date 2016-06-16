@@ -7,130 +7,91 @@
 // http://www.cplusplus.com/reference/algorithm/transform/
 // http://www.cplusplus.com/reference/numeric/accumulate/
 
-#include <algorithm>  // equal, transform
-#include <cassert>    // assert
-#include <functional> // function
-#include <iostream>   // cout, endl
-#include <list>       // list
-#include <numeric>    // accumulate
-#include <vector>     // vector
+#include <algorithm>        // equal, transform
+#include <cassert>          // assert
+#include <functional>       // function
+#include <initializer_list> // initializer_list
+#include <iostream>         // cout, endl
+#include <numeric>          // accumulate
+#include <vector>           // vector
 
 using namespace std;
 
 // typedef int (*UF) (int);
-using UF1 = int (*) (int);
+// using UF = int (*) (int);
 // typedef function<int (int)> UF;
-using UF2 = function<int (int)>;
+using UF = function<int (int)>;
 
 // typedef int (*BF) (int, int);
-using BF1 = int (*) (int, int);
+// using BF = int (*) (int, int);
 // typedef function<int (int, int)> BF;
-using BF2 = function<int (int, int)>;
+using BF = function<int (int, int)>;
 
-int add_function (int i, int j) {
+int my_function (int i, int j) {
     return i + j;}
 
-BF1 add_lambda_1 () {
+BF my_lambda () {
     return [] (int i, int j) -> int {return i + j;};}
 
-BF2 add_lambda_2 () {
-    return [] (int i, int j) -> int {return i + j;};}
-
-// UF1 add_closure_1 (int i) {                     // error: no viable conversion from '(lambda at Lambdas.c++:40:12)' to 'UF1' (aka 'int (*)(int)')
-//     return [i] (int j) -> int {return i + j;};}
-
-UF2 add_closure_2 (int i) {
+UF my_closure_by_value (int i) {
     return [i] (int j) -> int {return i + j;};}
 
-// UF1 add_closure_3 (int& i) {                     // error: no viable conversion from '(lambda at Lambdas.c++:40:12)' to 'UF1' (aka 'int (*)(int)')
-//     return [&i] (int j) -> int {return i + j;};}
-
-UF2 add_closure_4 (int& i) {
+UF my_closure_by_reference (int& i) {
     return [&i] (int j) -> int {return i + j;};}
 
-// UF1 add_closure_5 (int& i) {                     // error: no viable conversion from '(lambda at Lambdas.c++:46:13)' to 'UF1' (aka 'int (*)(int)')
-//     return [&i] (int j) -> int {return i + j;};}
-
-UF2 add_closure_6 (int& i) {
+UF my_closure_by_reference_2 (int& i) {
     return [&i] (int j) -> int {return i++ + j;};}
 
 int main () {
     cout << "Lambdas.c++" << endl;
 
     {
-    const list<int> x = {2, 3, 4};
+    const initializer_list<int> x = {2, 3, 4};
 
-    BF1  f = add_function;
-    BF2  g = add_function;
-    auto h = add_function;
+    BF   f = my_function;
+    auto g = my_function;
 
-    assert(add_function(2, 3) == 5);
+    assert(my_function(2, 3) == 5);
     assert(           f(2, 3) == 5);
     assert(           g(2, 3) == 5);
-    assert(           h(2, 3) == 5);
 
-    assert(accumulate(x.begin(), x.end(), 0, add_function) == 9);
-    assert(accumulate(x.begin(), x.end(), 0, f)            == 9);
-    assert(accumulate(x.begin(), x.end(), 0, g)            == 9);
-    assert(accumulate(x.begin(), x.end(), 0, h)            == 9);
+    assert(accumulate(begin(x), end(x), 0, my_function) == 9);
+    assert(accumulate(begin(x), end(x), 0, f)            == 9);
+    assert(accumulate(begin(x), end(x), 0, g)            == 9);
     }
 
 
 
     {
-    const list<int> x = {2, 3, 4};
+    const initializer_list<int> x = {2, 3, 4};
 
-    BF1  f = [] (int i, int j) -> int {return i + j;};
-    BF2  g = [] (int i, int j) -> int {return i + j;};
-    auto h = [] (int i, int j) -> int {return i + j;};
+    BF   f = [] (int i, int j) -> int {return i + j;};
+    auto g = [] (int i, int j) -> int {return i + j;};
 
     assert([] (int i, int j) -> int {return i + j;}(2, 3) == 5);
     assert(                                       f(2, 3) == 5);
     assert(                                       g(2, 3) == 5);
-    assert(                                       h(2, 3) == 5);
 
-    assert(accumulate(x.begin(), x.end(), 0, [] (int i, int j) -> int {return i + j;}) == 9);
-    assert(accumulate(x.begin(), x.end(), 0, f)                                        == 9);
-    assert(accumulate(x.begin(), x.end(), 0, g)                                        == 9);
-    assert(accumulate(x.begin(), x.end(), 0, h)                                        == 9);
+    assert(accumulate(begin(x), end(x), 0, [] (int i, int j) -> int {return i + j;}) == 9);
+    assert(accumulate(begin(x), end(x), 0, f)                                        == 9);
+    assert(accumulate(begin(x), end(x), 0, g)                                        == 9);
     }
 
 
 
     {
-    const list<int> x = {2, 3, 4};
+    const initializer_list<int> x = {2, 3, 4};
 
-    BF1  f = add_lambda_1();
-    BF2  g = add_lambda_1();
-    auto h = add_lambda_1();
+    BF   f = my_lambda();
+    auto g = my_lambda();
 
-    assert(add_lambda_1()(2, 3) == 5);
+    assert(my_lambda()(2, 3) == 5);
     assert(             f(2, 3) == 5);
     assert(             g(2, 3) == 5);
-    assert(             h(2, 3) == 5);
 
-    assert(accumulate(x.begin(), x.end(), 0, add_lambda_1()) == 9);
-    assert(accumulate(x.begin(), x.end(), 0, f)              == 9);
-    assert(accumulate(x.begin(), x.end(), 0, g)              == 9);
-    assert(accumulate(x.begin(), x.end(), 0, h)              == 9);
-    }
-
-
-
-    {
-    const list<int> x = {2, 3, 4};
-
-//  BF1  f = add_lambda_2(); // error: no viable conversion from 'BF2' (aka 'function<int (int, int)>') to 'BF1' (aka 'int (*)(int, int)')
-    BF2  g = add_lambda_2();
-    auto h = add_lambda_2();
-
-    assert(add_lambda_2()(2, 3) == 5);
-    assert(             g(2, 3) == 5);
-    assert(             h(2, 3) == 5);
-
-    assert(accumulate(x.begin(), x.end(), 0, add_lambda_2()) == 9);
-    assert(accumulate(x.begin(), x.end(), 0, g)              == 9);
-    assert(accumulate(x.begin(), x.end(), 0, h)              == 9);
+    assert(accumulate(begin(x), end(x), 0, my_lambda()) == 9);
+    assert(accumulate(begin(x), end(x), 0, f)              == 9);
+    assert(accumulate(begin(x), end(x), 0, g)              == 9);
     }
 
 
@@ -138,34 +99,33 @@ int main () {
     {
     const int i = 2;
 
-//  UF1  f = [i] (int j) -> int {return i + j;}; // error: no viable conversion from '(lambda at Lambdas.c++:109:14)' to 'UF1' (aka 'int (*)(int)')
-    UF2  g = [i] (int j) -> int {return i + j;};
-    auto h = [i] (int j) -> int {return i + j;};
+    UF   f = [i] (int j) -> int {return i + j;};
+    auto g = [i] (int j) -> int {return i + j;};
 
     assert([i] (int j) -> int {return i + j;}(3) == 5);
+    assert(                                 f(3) == 5);
     assert(                                 g(3) == 5);
-    assert(                                 h(3) == 5);
 
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), [i] (int j) -> int {return i + j;});
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), [i] (int j) -> int {return i + j;});
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), g);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), h);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     }
 
@@ -174,34 +134,33 @@ int main () {
     {
     const int i = 2;
 
-//  UF1  f = add_closure_2(i); //  error: no viable conversion from 'UF2' (aka 'function<int (int)>') to 'UF1' (aka 'int (*)(int)')
-    UF2  g = add_closure_2(i);
-    auto h = add_closure_2(i);
+    UF   f = my_closure_by_value(i);
+    auto g = my_closure_by_value(i);
 
-    assert(add_closure_2(i)(3) == 5);
+    assert(my_closure_by_value(i)(3) == 5);
+    assert(               f(3) == 5);
     assert(               g(3) == 5);
-    assert(               h(3) == 5);
 
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), add_closure_2(i));
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), my_closure_by_value(i));
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), g);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), h);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     }
 
@@ -210,36 +169,35 @@ int main () {
     {
     int i = 1;
 
-//  UF1  f = [&i] (int j) -> int {return i + j;}; // error: no viable conversion from '(lambda at Lambdas.c++:109:14)' to 'UF1' (aka 'int (*)(int)')
-    UF2  g = [&i] (int j) -> int {return i + j;};
-    auto h = [&i] (int j) -> int {return i + j;};
+    UF   f = [&i] (int j) -> int {return i + j;};
+    auto g = [&i] (int j) -> int {return i + j;};
 
     i = 2;
 
     assert([&i] (int j) -> int {return i + j;}(3) == 5);
+    assert(                                  f(3) == 5);
     assert(                                  g(3) == 5);
-    assert(                                  h(3) == 5);
 
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), [i] (int j) -> int {return i + j;});
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), [i] (int j) -> int {return i + j;});
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), g);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), h);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     }
 
@@ -248,36 +206,35 @@ int main () {
     {
     int i = 1;
 
-//  UF1  f = add_closure_4(i); //  error: no viable conversion from 'UF2' (aka 'function<int (int)>') to 'UF1' (aka 'int (*)(int)')
-    UF2  g = add_closure_4(i);
-    auto h = add_closure_4(i);
+    UF   f = my_closure_by_reference(i);
+    auto g = my_closure_by_reference(i);
 
     i = 2;
 
-    assert(add_closure_4(i)(3) == 5);
+    assert(my_closure_by_reference(i)(3) == 5);
+    assert(               f(3) == 5);
     assert(               g(3) == 5);
-    assert(               h(3) == 5);
 
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), add_closure_4(i));
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), my_closure_by_reference(i));
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), g);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {4, 5, 6};
-    transform(x.begin(), x.end(), y.begin(), h);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {4, 5, 6};
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     }
 
@@ -286,34 +243,33 @@ int main () {
     {
     int i = 2;
 
-//  UF1  f = [&i] (int j) -> int {return i++ + j;}; // error: no viable conversion from '(lambda at Lambdas.c++:109:14)' to 'UF1' (aka 'int (*)(int)')
-    UF2  g = [&i] (int j) -> int {return i++ + j;};
-    auto h = [&i] (int j) -> int {return i++ + j;};
+    UF   f = [&i] (int j) -> int {return i++ + j;};
+    auto g = [&i] (int j) -> int {return i++ + j;};
 
     assert([&i] (int j) -> int {return i++ + j;}(3) == 5);
-    assert(                                    g(3) == 6);
-    assert(                                    h(3) == 7);
+    assert(                                    f(3) == 6);
+    assert(                                    g(3) == 7);
 
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {7, 9, 11};
-    transform(x.begin(), x.end(), y.begin(), [&i] (int j) -> int {return i++ + j;});
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {7, 9, 11};
+    transform(begin(x), end(x), begin(y), [&i] (int j) -> int {return i++ + j;});
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {10, 12, 14};
-    transform(x.begin(), x.end(), y.begin(), g);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {10, 12, 14};
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {13, 15, 17};
-    transform(x.begin(), x.end(), y.begin(), h);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {13, 15, 17};
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     }
 
@@ -322,34 +278,33 @@ int main () {
     {
     int i = 2;
 
-//  UF1  f = add_closure_6(i); //  error: no viable conversion from 'UF2' (aka 'function<int (int)>') to 'UF1' (aka 'int (*)(int)')
-    UF2  g = add_closure_6(i);
-    auto h = add_closure_6(i);
+    UF   f = my_closure_by_reference_2(i);
+    auto g = my_closure_by_reference_2(i);
 
-    assert(add_closure_6(i)(3) == 5);
-    assert(               g(3) == 6);
-    assert(               h(3) == 7);
+    assert(my_closure_by_reference_2(i)(3) == 5);
+    assert(               f(3) == 6);
+    assert(               g(3) == 7);
 
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {7, 9, 11};
-    transform(x.begin(), x.end(), y.begin(), add_closure_6(i));
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {7, 9, 11};
+    transform(begin(x), end(x), begin(y), my_closure_by_reference_2(i));
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {10, 12, 14};
-    transform(x.begin(), x.end(), y.begin(), g);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {10, 12, 14};
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     {
-    list<int>   x = {2, 3, 4};
+    initializer_list<int>   x = {2, 3, 4};
     vector<int> y(3);
-    list<int>   z = {13, 15, 17};
-    transform(x.begin(), x.end(), y.begin(), h);
-    assert(equal(y.begin(), y.end(), z.begin()));
+    initializer_list<int>   z = {13, 15, 17};
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin(z)));
     }
     }
 
