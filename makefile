@@ -78,6 +78,7 @@ sync:
     --include "Pair.c++"                    \
     --include "Pair.h"                      \
     --include "Copy.c++"                    \
+    --include "Copy.h"                      \
     --include "Fill.c++"                    \
     --include "AllOf.c++"                   \
     --include "Stack.c++"                   \
