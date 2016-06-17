@@ -80,6 +80,7 @@ sync:
     --include "Copy.c++"                    \
     --include "Copy.h"                      \
     --include "Fill.c++"                    \
+    --include "Fill.h"                      \
     --include "AllOf.c++"                   \
     --include "Stack.c++"                   \
     --exclude "*"                           \
