@@ -75,6 +75,8 @@ sync:
     --include "Equal.h"                     \
     --include "Incr.c++"                    \
     --include "Incr.h"                      \
+    --include "Pair.c++"                    \
+    --include "Pair.h"                      \
     --include "Copy.c++"                    \
     --include "Fill.c++"                    \
     --include "AllOf.c++"                   \

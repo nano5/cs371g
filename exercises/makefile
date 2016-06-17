@@ -5,7 +5,8 @@ FILES :=          \
     IsPrime2      \
     StrCmp        \
     Equal         \
-    Incr
+    Incr          \
+    Pair
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread
