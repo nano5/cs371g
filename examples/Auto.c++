@@ -2,7 +2,7 @@
 // Auto.c++
 // --------
 
-// http://en.cppreference.com/w/cpp/language/auto
+//  http://en.cppreference.com/w/cpp/language/auto
 
 #include <cassert>    // assert
 #include <functional> // function
