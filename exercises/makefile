@@ -6,7 +6,8 @@ FILES :=          \
     StrCmp        \
     Equal         \
     Incr          \
-    Pair
+    Pair          \
+    AllOf
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread

@@ -82,7 +82,9 @@ sync:
     --include "Fill.c++"                    \
     --include "Fill.h"                      \
     --include "Pair.c++"                    \
+    --include "Pair.h"                      \
     --include "AllOf.c++"                   \
+    --include "AllOf.h"                     \
     --include "Stack.c++"                   \
     --exclude "*"                           \
     ../../exercises/c++/ exercises

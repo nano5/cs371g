@@ -29,7 +29,7 @@ int main () {
     }
 
     {
-    int i = (2);
+    int i = {2};
     assert(i == 2);
     auto j = {2};
     assert(equal(begin(j), end(j), begin({2})));
