@@ -61,6 +61,8 @@ sync:
     --include "Returns.c++"                 \
     --include "Iteration.c++"               \
     --include "InitializerList.c++"         \
+    --include "Auto.c++"                    \
+    --include "Initializations.c++"         \
     --include "Lambdas.c++"                 \
     --exclude "*"                           \
     ../../examples/c++/ examples

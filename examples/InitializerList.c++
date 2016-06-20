@@ -13,20 +13,54 @@ int main () {
     using namespace std;
     cout << "InitializerList.c++" << endl;
 
+    {
+    initializer_list<int> x;
+    assert(x.size() == 0);
+    }
+
+    {
+    initializer_list<int> x = {};
+    assert(x.size() == 0);
+    }
+
+    {
+    initializer_list<int> x = {2};
+    assert(x.size() == 1);
+    }
+
+    {
+    initializer_list<int> x = {2, 3};
+    assert(x.size() == 2);
+    }
+
+    {
     initializer_list<int> x = {2, 3, 4};
     assert(x.size() == 3);
+    }
 
-    initializer_list<int> y;
-    y = {2, 3, 4, 5};
-    assert(y.size() == 4);
+    {
+    initializer_list<int> x;
+    x = {2, 3, 4};
+    assert(x.size() == 3);
+    }
 
+    {
+    initializer_list<int> x = {2, 3, 4};
+    assert(x.size() == 3);
+    initializer_list<int> y = x;
+    assert(y.size() == 3);
     assert(equal(begin(x), end(x), begin(y)));
+    }
 
-    initializer_list<int> z = x;
-    assert(z.size() == 3);
-
-    z = y;
-    assert(z.size() == 4);
+    {
+    initializer_list<int> x = {2, 3, 4};
+    assert(x.size() == 3);
+    initializer_list<int> y = {5, 6};
+    assert(y.size() == 2);
+    x = y;
+    assert(x.size() == 2);
+    assert(equal(begin(x), end(x), begin(y)));
+    }
 
     cout << "Done." << endl;
     return 0;}

@@ -112,7 +112,7 @@ int main () {
     {
     const set<int> x = {2, 3, 4};
           int      s = 0;
-    for (auto v : x)
+    for (set<int>::value_type v : x)
         s += v;
     assert(s == 9);
     }
@@ -120,7 +120,7 @@ int main () {
     {
     const set<int> x = {2, 3, 4};
           int      s = 0;
-    for (set<int>::value_type v : x)
+    for (auto v : x)
         s += v;
     assert(s == 9);
     }

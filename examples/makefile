@@ -16,6 +16,8 @@ FILES :=                    \
     Returns                 \
     Iteration               \
     InitializerList         \
+    Auto                    \
+    Initializations         \
     Lambdas
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
