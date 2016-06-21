@@ -38,19 +38,24 @@ int main () {
     {
     int i = 2.0;
     assert(i == 2);
-    int j(3.0);
-    assert(j == 3);
-//  int k{4.0};     // error: type 'double' cannot be narrowed to 'int' in initializer list [-Wc++11-narrowing]
-//  int m = {5.0};  // error: type 'double' cannot be narrowed to 'int' in initializer list [-Wc++11-narrowing]
+
+    int j(2.0);
+    assert(j == 2);
+
+//  int k{2.0};     // error: type 'double' cannot be narrowed to 'int' in initializer list [-Wc++11-narrowing]
+//  int m = {2.0};  // error: type 'double' cannot be narrowed to 'int' in initializer list [-Wc++11-narrowing]
     }
 
     {
     A x(2);
     assert(&x == &x);
+
     A y = 2;
     assert(&y == &y);
+
     A z{2};
     assert(&z == &z);
+
     A t = {2};
     assert(&t == &t);
     }
@@ -58,17 +63,22 @@ int main () {
     {
     B x(2);
     assert(&x == &x);
+
 //  B y = 2;          // error: no viable conversion from 'int' to 'B'
+
     B z{2};
     assert(&z == &z);
+
 //  B t = {2};        // error: chosen constructor is explicit in copy-initialization
     }
 
     {
 //  C x(2);           // error: no matching constructor for initialization of 'C'
 //  C y = 2;          // error: no viable conversion from 'int' to 'C'
+
     C z{2};
     assert(&z == &z);
+
     C t = {2};
     assert(&t == &t);
     }
@@ -76,10 +86,13 @@ int main () {
     {
     D x(2);
     assert(&x == &x);
+
     D y = 2;
     assert(&y == &y);
+
     D z{2};
     assert(&z == &z);
+
     D t = {2};
     assert(&t == &t);
     }
@@ -87,20 +100,21 @@ int main () {
     {
     vector<int> x(2);
     assert(x.size() == 2);
-    assert(x[0]     == 0);
-    assert(x[1]     == 0);
-//  vector<int> y = 2;     // error: no viable conversion from 'int' to 'vector<int>'
+    assert(equal(begin(x), end(x), begin({0, 0})));
+
+//  vector<int> y = 2;                                // error: no viable conversion from 'int' to 'vector<int>'
+
     vector<int> z{2};
     assert(z.size() == 1);
-    assert(z[0]     == 2);
+    assert(equal(begin(z), end(z), begin({2})));
+
     vector<int> t = {2};
     assert(t.size() == 1);
-    assert(t[0]     == 2);
+    assert(equal(begin(t), end(t), begin({2})));
+
     vector<int> u{2, 3, 4};
     assert(u.size() == 3);
-    assert(u[0]     == 2);
-    assert(u[1]     == 3);
-    assert(u[2]     == 4);
+    assert(equal(begin(z), end(z), begin({2, 3, 4})));
     }
 
     cout << "Done." << endl;

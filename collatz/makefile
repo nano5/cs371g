@@ -49,6 +49,10 @@ Collatz.log:
 
 Doxyfile:
 	doxygen -g
+	# you must manually edit Doxyfile and
+	# set EXTRACT_ALL     to YES
+	# set EXTRACT_PRIVATE to YES
+	# set EXTRACT_STATEIC to YES
 
 RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
 ifeq ($(CC), clang)
