@@ -63,7 +63,7 @@ sync:
     --include "InitializerList.c++"         \
     --include "Auto.c++"                    \
     --include "Initializations.c++"         \
-    --include "Lambdas.c++"                 \
+    --include "Functions.c++"               \
     --exclude "*"                           \
     ../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \

@@ -18,7 +18,7 @@ FILES :=                    \
     InitializerList         \
     Auto                    \
     Initializations         \
-    Lambdas
+    Functions
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread
