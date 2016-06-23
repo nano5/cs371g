@@ -87,21 +87,21 @@ int main () {
 
 
     {
-    BF   f = my_struct();
-    auto g = my_struct();
+    BF   f = my_lambda();
+    auto g = my_lambda();
 
     assert(sizeof(f) == 48);
-    assert(sizeof(g) ==  1);
+    assert(sizeof(g) == 48);
 
-    assert(my_struct()(2, 3) == 5);
+    assert(my_lambda()(2, 3) == 5);
     assert(          f(2, 3) == 5);
     assert(          g(2, 3) == 5);
 
     const initializer_list<int> x = {2, 3, 4};
 
-    assert(accumulate(begin(x), end(x), 0, [] (int i, int j) -> int {return i + j;}) == 9);
-    assert(accumulate(begin(x), end(x), 0, f)                                        == 9);
-    assert(accumulate(begin(x), end(x), 0, g)                                        == 9);
+    assert(accumulate(begin(x), end(x), 0, my_lambda()) == 9);
+    assert(accumulate(begin(x), end(x), 0, f)           == 9);
+    assert(accumulate(begin(x), end(x), 0, g)           == 9);
     }
 
 
@@ -123,6 +123,41 @@ int main () {
     initializer_list<int> x = {2, 3, 4};
     vector<int> y(3);
     transform(begin(x), end(x), begin(y), [i] (int j) -> int {return i + j;});
+    assert(equal(begin(y), end(y), begin({4, 5, 6})));
+    }
+    {
+    initializer_list<int> x = {2, 3, 4};
+    vector<int> y(3);
+    transform(begin(x), end(x), begin(y), f);
+    assert(equal(begin(y), end(y), begin({4, 5, 6})));
+    }
+    {
+    initializer_list<int> x = {2, 3, 4};
+    vector<int> y(3);
+    transform(begin(x), end(x), begin(y), g);
+    assert(equal(begin(y), end(y), begin({4, 5, 6})));
+    }
+    }
+
+
+
+    {
+    int i = 2;
+
+    UF   f = my_closure_by_value(i);
+    auto g = my_closure_by_value(i);
+
+    assert(sizeof(f) == 48);
+    assert(sizeof(g) == 48);
+
+    assert(my_closure_by_value(i)(3) == 5);
+    assert(                     f(3) == 5);
+    assert(                     g(3) == 5);
+
+    {
+    initializer_list<int> x = {2, 3, 4};
+    vector<int> y(3);
+    transform(begin(x), end(x), begin(y), my_closure_by_value(i));
     assert(equal(begin(y), end(y), begin({4, 5, 6})));
     }
     {
@@ -182,61 +217,6 @@ int main () {
 
 
     {
-    BF   f = my_lambda();
-    auto g = my_lambda();
-
-    assert(sizeof(f) == 48);
-    assert(sizeof(g) == 48);
-
-    assert(my_lambda()(2, 3) == 5);
-    assert(          f(2, 3) == 5);
-    assert(          g(2, 3) == 5);
-
-    const initializer_list<int> x = {2, 3, 4};
-
-    assert(accumulate(begin(x), end(x), 0, my_lambda()) == 9);
-    assert(accumulate(begin(x), end(x), 0, f)           == 9);
-    assert(accumulate(begin(x), end(x), 0, g)           == 9);
-    }
-
-
-
-    {
-    int i = 2;
-
-    UF   f = my_closure_by_value(i);
-    auto g = my_closure_by_value(i);
-
-    assert(sizeof(f) == 48);
-    assert(sizeof(g) == 48);
-
-    assert(my_closure_by_value(i)(3) == 5);
-    assert(                     f(3) == 5);
-    assert(                     g(3) == 5);
-
-    {
-    initializer_list<int> x = {2, 3, 4};
-    vector<int> y(3);
-    transform(begin(x), end(x), begin(y), my_closure_by_value(i));
-    assert(equal(begin(y), end(y), begin({4, 5, 6})));
-    }
-    {
-    initializer_list<int> x = {2, 3, 4};
-    vector<int> y(3);
-    transform(begin(x), end(x), begin(y), f);
-    assert(equal(begin(y), end(y), begin({4, 5, 6})));
-    }
-    {
-    initializer_list<int> x = {2, 3, 4};
-    vector<int> y(3);
-    transform(begin(x), end(x), begin(y), g);
-    assert(equal(begin(y), end(y), begin({4, 5, 6})));
-    }
-    }
-
-
-
-    {
     int i = 2;
 
     UF   f = my_closure_by_reference(i);
@@ -272,6 +252,27 @@ int main () {
     assert(i == 14);
     assert(equal(begin(y), end(y), begin({13, 15, 17})));
     }
+    }
+
+
+
+
+    {
+    BF   f = my_struct();
+    auto g = my_struct();
+
+    assert(sizeof(f) == 48);
+    assert(sizeof(g) ==  1);
+
+    assert(my_struct()(2, 3) == 5);
+    assert(          f(2, 3) == 5);
+    assert(          g(2, 3) == 5);
+
+    const initializer_list<int> x = {2, 3, 4};
+
+    assert(accumulate(begin(x), end(x), 0, [] (int i, int j) -> int {return i + j;}) == 9);
+    assert(accumulate(begin(x), end(x), 0, f)                                        == 9);
+    assert(accumulate(begin(x), end(x), 0, g)                                        == 9);
     }
 
     cout << "Done." << endl;
