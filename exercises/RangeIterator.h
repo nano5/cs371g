@@ -7,6 +7,7 @@
 
 #include <cstddef>  // ptrdiff_t
 #include <iterator> // input_iterator_tag, iterator
+#include <utility>  // !=
 
 /*
 namespace std {
@@ -22,10 +23,22 @@ struct iterator {
 } // std
 */
 
-using namespace std;
+/*
+namespace std     {
+namespace rel_ops {
 
 template <typename T>
-class Range_Iterator : public iterator<input_iterator_tag, T> {
+inline bool operator != (const T& lhs, const T& rhs) {
+    return !(lhs == rhs);}
+
+} // rel_ops
+} // std;
+*/
+
+using std::rel_ops::operator!=;
+
+template <typename T>
+class Range_Iterator : public std::iterator<std::input_iterator_tag, T> {
 /*
     public:
         using iterator_category = input_iterator_tag;
@@ -34,6 +47,9 @@ class Range_Iterator : public iterator<input_iterator_tag, T> {
         using pointer           = T*;
         using reference         = T&;
 */
+    friend bool operator == (const Range_Iterator& lhs, const Range_Iterator& rhs) {
+            return (lhs._v == rhs._v);}
+
     private:
         T _v;
 
@@ -41,12 +57,6 @@ class Range_Iterator : public iterator<input_iterator_tag, T> {
         Range_Iterator(const T& v) :
                 _v (v)
             {}
-
-        bool operator == (const Range_Iterator& rhs) const {
-            return (_v == rhs._v);}
-
-        bool operator != (const Range_Iterator& rhs) const {
-            return !(*this == rhs);}
 
         const T& operator * () const {
             return _v;}
