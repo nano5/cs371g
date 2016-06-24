@@ -27,6 +27,29 @@ using BF1 = int (*) (int, int);
 // typedef function<int (int, int)> BF;
 using BF2 = function<int (int, int)>;
 
+struct A {
+    int i;
+
+    A (int i) :
+            i (i)
+        {}
+
+    int my_method (int j) {
+        return i + j;}};
+
+struct B {
+    int i;
+
+    B (int i) :
+            i (i)
+        {}
+
+    int operator () (int j) {
+        return i + j;}};
+
+// typedef int (A::*BF3) (int);
+using BF3 = int (A::*) (int);
+
 int my_function (int i, int j) {
     return i + j;}
 
@@ -38,10 +61,6 @@ UF2 my_closure_by_value (int i) {
 
 UF2 my_closure_by_reference (int& i) {
     return [&i] (int j) -> int {return i++ + j;};}
-
-struct my_struct {
-    int operator () (int i, int j) {
-        return i + j;}};
 
 int main () {
     cout << "Functions.c++" << endl;
@@ -270,24 +289,32 @@ int main () {
 
 
 
+    {
+    BF3  f = &A::my_method;
+    auto g = &A::my_method;
+
+    assert(sizeof(f) == 16);
+    assert(sizeof(g) == 16);
+
+    A x = 2;
+    assert(sizeof(x) == 4);
+
+    assert(x.my_method(3) == 5);
+    assert(     (x.*f)(3) == 5);
+    }
+
+
 
     {
-//  BF1  f = my_struct(); // error: no viable conversion from 'my_struct' to 'BF1' (aka 'int (*)(int, int)')
-    BF2  g = my_struct();
-    auto h = my_struct();
+    B    f = 2;
+    auto g = B(2);
 
-    assert(sizeof(g) == 48);
-    assert(sizeof(h) ==  1);
+    assert(sizeof(f) == 4);
+    assert(sizeof(g) == 4);
 
-    assert(my_struct()(2, 3) == 5);
-    assert(          g(2, 3) == 5);
-    assert(          h(2, 3) == 5);
-
-    const initializer_list<int> x = {2, 3, 4};
-
-    assert(accumulate(begin(x), end(x), 0, [] (int i, int j) -> int {return i + j;}) == 9);
-    assert(accumulate(begin(x), end(x), 0, g)                                        == 9);
-    assert(accumulate(begin(x), end(x), 0, h)                                        == 9);
+    assert(B(2)(3) == 5);
+    assert(   f(3) == 5);
+    assert(   g(3) == 5);
     }
 
     cout << "Done." << endl;
