@@ -49,8 +49,8 @@ struct B {
 
 // typedef int (A::*BF3) (int);
 using BF3 = int (A::*) (int);
-// typedef int (*BF4) (A*);
-using BF4 = function<int (A*)>;
+typedef int (*BF4) (A*, int);        // doens't work
+using BF5 = function<int (A*, int)>; // works!!!
 
 int my_function (int i, int j) {
     return i + j;}
@@ -293,10 +293,12 @@ int main () {
 
     {
     BF3  f = &A::my_method;
-    BF4  g = &A::my_method;
+//  BF4  g = &A::my_method; // error: cannot initialize a variable of type 'BF4' (aka 'int (*)(A *, int)') with an rvalue of type
+    BF5  g = &A::my_method;
     auto h = &A::my_method;
 
     assert(sizeof(f) == 16);
+    assert(sizeof(g) == 48);
     assert(sizeof(h) == 16);
 
     A x = 2;
@@ -304,6 +306,8 @@ int main () {
 
     assert(x.my_method(3) == 5);
     assert(     (x.*f)(3) == 5);
+    assert(     g(&x, 3)  == 5);
+    assert(     (x.*h)(3) == 5);
     }
 
 
