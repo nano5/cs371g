@@ -39,10 +39,6 @@ TEST_P(EqualListFixture, test_2) {
 	ASSERT_TRUE(GetParam()(begin(x), end(x), begin(y) + 1));}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Equal.c++ -o Equal -lgtest -lgtest_main -pthread
-
-
-
 % Equal
 Running main() from gtest_main.cc
 [==========] Running 4 tests from 1 test case.

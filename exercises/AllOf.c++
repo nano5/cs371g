@@ -39,10 +39,6 @@ TEST_P(AllOfListFixture, test_2) {
     ASSERT_TRUE(GetParam()(begin(x), end(x), [n] (int v) -> bool {return (v % n);}));}
 
 /*
-% g++ -pedantic -std=c++11 -Wall AllOf.c++ -o AllOf -lgtest -lgtest_main -pthread
-
-
-
 % AllOf
 Running main() from gtest_main.cc
 [==========] Running 4 tests from 1 test case.

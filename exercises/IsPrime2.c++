@@ -36,10 +36,6 @@ TEST(IsPrimeFixture, test_29) {
     ASSERT_TRUE(is_prime(29));}
 
 /*
-% g++ -pedantic -std=c++11 -Wall IsPrime2.c++ -o IsPrime2 -lgtest -lgtest_main -pthread
-
-
-
 % IsPrime2
 Running main() from gtest_main.cc
 [==========] Running 9 tests from 1 test case.

@@ -42,10 +42,6 @@ TEST_P(FillListFixture, test_2) {
     ASSERT_TRUE(equal(begin(x), end(x), begin(y)));}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Fill.c++ -o Fill -lgtest -lgtest_main -pthread
-
-
-
 % Fill
 Running main() from gtest_main.cc
 [==========] Running 4 tests from 1 test case.

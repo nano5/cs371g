@@ -86,6 +86,9 @@ sync:
     --include "AllOf.c++"                   \
     --include "AllOf.h"                     \
     --include "Stack.c++"                   \
+    --include "Stack.h"                     \
+    --include "RangeIterator.c++"           \
+    --include "Range.c++"                   \
     --exclude "*"                           \
     ../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \

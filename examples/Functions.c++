@@ -33,7 +33,7 @@ int my_function (int i, int j) {
 BF1 my_lambda () {
     return [] (int i, int j) -> int {return i + j;};}
 
-UF2 my_closure_by_value (int& i) {
+UF2 my_closure_by_value (int i) {
     return [i] (int j) -> int {return i + j;};}
 
 UF2 my_closure_by_reference (int& i) {
@@ -119,7 +119,7 @@ int main () {
 
 
     {
-    int i = 2;
+    const int i = 2;
 
 //  UF1  f = [i] (int j) -> int {return i + j;}; // error: no viable conversion from '(lambda at Functions.c++:124:14)' to 'UF1' (aka 'int (*)(int)')
     UF2  g = [i] (int j) -> int {return i + j;};
@@ -155,7 +155,7 @@ int main () {
 
 
     {
-    int i = 2;
+    const int i = 2;
 
 //  UF1  f = my_closure_by_value(i); // error: no viable conversion from 'UF2' (aka 'function<int (int)>') to 'UF1' (aka 'int (*)(int)')
     UF2  g = my_closure_by_value(i);

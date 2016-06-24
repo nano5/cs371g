@@ -32,10 +32,6 @@ TEST(IncrFixture, test_4) {
     ASSERT_EQ(2, i);}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Incr.c++ -o Incr -lgtest -lgtest_main -pthread
-
-
-
 % Incr
 Running main() from gtest_main.cc
 [==========] Running 4 tests from 1 test case.

@@ -47,10 +47,6 @@ TEST_P(CopyListFixture, test_2) {
     ASSERT_TRUE(equal(begin(y), y.end(), z.begin()));}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Copy.c++ -o Copy -lgtest -lgtest_main -pthread
-
-
-
 % Copy
 Running main() from gtest_main.cc
 [==========] Running 4 tests from 1 test case.

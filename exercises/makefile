@@ -7,7 +7,8 @@ FILES :=          \
     Equal         \
     Incr          \
     Pair          \
-    AllOf
+    AllOf         \
+    Stack
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 LDFLAGS  := -lgtest -lgtest_main -pthread

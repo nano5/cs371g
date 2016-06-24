@@ -57,10 +57,6 @@ TEST_P (Str_Cmp_Fixture, test_10) {
 	ASSERT_EQ(GetParam()("", "a"), 0 - 'a');}
 
 /*
-% g++ -pedantic -std=c++11 -Wall StrCmp.c++ -o StrCmp -lgtest -lgtest_main -pthread
-
-
-
 % StrCmp
 Running main() from gtest_main.cc
 [==========] Running 20 tests from 1 test case.
