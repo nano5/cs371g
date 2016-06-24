@@ -49,6 +49,8 @@ struct B {
 
 // typedef int (A::*BF3) (int);
 using BF3 = int (A::*) (int);
+// typedef int (*BF4) (A*);
+using BF4 = function<int (A*)>;
 
 int my_function (int i, int j) {
     return i + j;}
@@ -291,10 +293,11 @@ int main () {
 
     {
     BF3  f = &A::my_method;
-    auto g = &A::my_method;
+    BF4  g = &A::my_method;
+    auto h = &A::my_method;
 
     assert(sizeof(f) == 16);
-    assert(sizeof(g) == 16);
+    assert(sizeof(h) == 16);
 
     A x = 2;
     assert(sizeof(x) == 4);

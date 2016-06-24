@@ -88,6 +88,7 @@ sync:
     --include "Stack.c++"                   \
     --include "Stack.h"                     \
     --include "RangeIterator.c++"           \
+    --include "RangeIterator.h"           \
     --include "Range.c++"                   \
     --exclude "*"                           \
     ../../exercises/c++/ exercises
