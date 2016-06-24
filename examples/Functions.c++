@@ -155,23 +155,21 @@ int main () {
 
 
     {
-    const int i = 2;
-
-//  UF1  f = my_closure_by_value(i); // error: no viable conversion from 'UF2' (aka 'function<int (int)>') to 'UF1' (aka 'int (*)(int)')
-    UF2  g = my_closure_by_value(i);
-    auto h = my_closure_by_value(i);
+//  UF1  f = my_closure_by_value(2); // error: no viable conversion from 'UF2' (aka 'function<int (int)>') to 'UF1' (aka 'int (*)(int)')
+    UF2  g = my_closure_by_value(2);
+    auto h = my_closure_by_value(2);
 
     assert(sizeof(g) == 48);
     assert(sizeof(h) == 48);
 
-    assert(my_closure_by_value(i)(3) == 5);
+    assert(my_closure_by_value(2)(3) == 5);
     assert(                     g(3) == 5);
     assert(                     h(3) == 5);
 
     {
     initializer_list<int> x = {2, 3, 4};
     vector<int> y(3);
-    transform(begin(x), end(x), begin(y), my_closure_by_value(i));
+    transform(begin(x), end(x), begin(y), my_closure_by_value(2));
     assert(equal(begin(y), end(y), begin({4, 5, 6})));
     }
     {
